@@ -22,8 +22,7 @@ type URL = String
 data Poll = Poll
   { pollTitle         :: String,
     pollPoll_options  :: [Option],
-    pollPoll_config   :: Config,
-    pollPoll_meta     :: PollMeta
+    pollPoll_config   :: Config
   }
   deriving (Show, Generic)
 
@@ -34,12 +33,7 @@ instance ToJSON Poll where
   toEncoding = genericToEncoding $ jsonOptions "poll"
 
 data Option = Option
-  { optionDescription :: Maybe String,
-    optionEnd_time    :: Integer,
-    optionId          :: String,
-    optionIs_write_in :: Bool,
-    optionMax_votes   :: Int,
-    optionPosition    :: Int,
+  { optionEnd_time    :: Integer,
     optionStart_time  :: Integer,
     optionType        :: String
   }
@@ -52,26 +46,9 @@ instance ToJSON Option where
   toEncoding = genericToEncoding $ jsonOptions "option"
 
 data Config = Config {
-    configAllow_comments        :: Bool,
     configAllow_indeterminate   :: Bool,
-    configAllow_other_option    :: Bool,
-    configAllow_vpn_users       :: Bool,
-    configDeadline_at           :: Maybe String,
-    configDuplication_checking  :: String,
-    configEdit_vote_permissions :: String,
-    configForce_appearance      :: Maybe String,
-    configHide_participants     :: Bool,
     configIs_multiple_choice    :: Bool,
     configIs_private            :: Bool,
-    configLayout                :: Maybe String,
-    configMultiple_choice_max   :: Int,
-    configMultiple_choice_min   :: Int,
-    configNumber_of_winners     :: Int,
-    configRandomize_options     :: Bool,
-    configRequire_voter_account :: Bool,
-    configRequire_voter_names   :: Bool,
-    configResults_visibility    :: String,
-    configShow_write_in_options :: Bool,
     configVote_type             :: String
 } deriving (Eq, Generic, Show)
 
@@ -80,18 +57,6 @@ instance FromJSON Config where
 
 instance ToJSON Config where
   toEncoding = genericToEncoding $ jsonOptions "config"
-
-data PollMeta = PollMeta {
-    metaDescription :: Maybe String,
-    metaLocation    :: Maybe String,
-    metaTimezone    :: Maybe String
-} deriving (Generic, Show)
-
-instance FromJSON PollMeta where
-  parseJSON = genericParseJSON $ jsonOptions "meta"
-
-instance ToJSON PollMeta where
-  toEncoding = genericToEncoding $ jsonOptions "meta"
 
 jsonOptions :: String -> Options
 jsonOptions prefix =

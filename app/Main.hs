@@ -22,10 +22,9 @@ import Libs
 
 eventHandler :: Event -> DiscordHandler ()
 eventHandler event = case event of
-    MessageCreate m -> when (isPing m && not (fromBot m)) $ do
-        void $ restCall (R.CreateReaction (messageChannelId m, messageId m) "eyes")
-        threadDelay (2 * 10^6)
-        void $ restCall (R.CreateMessage (messageChannelId m) "Pong!")
+    MessageCreate m -> do
+        when (fromBot m) (void $ restCall (R.AddPinnedMessage (messageChannelId m, messageId m)))
+        when (isPing m && not (fromBot m)) announcePoll
     _ -> return ()
 
 startHandler :: DiscordHandler ()

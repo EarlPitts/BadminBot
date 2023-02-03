@@ -31,7 +31,7 @@ startHandler :: DiscordHandler ()
 startHandler = do
     h <- ask
     liftIO $ execSchedule $
-        addJob (runReaderT announcePoll h) "00 08 * * 5" -- TODO Make this easily configurable?
+        addJob (runReaderT announcePoll h) "0 7 * * 5" -- TODO Make this easily configurable?
     return ()
 
 announcePoll :: DiscordHandler ()

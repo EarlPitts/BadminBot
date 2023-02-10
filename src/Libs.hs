@@ -49,7 +49,8 @@ data Config = Config {
     configAllow_indeterminate   :: Bool,
     configIs_multiple_choice    :: Bool,
     configIs_private            :: Bool,
-    configVote_type             :: String
+    configVote_type             :: String,
+    configEdit_vote_permissions :: String
 } deriving (Eq, Generic, Show)
 
 instance FromJSON Config where

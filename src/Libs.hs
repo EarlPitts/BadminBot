@@ -50,7 +50,8 @@ data Config = Config {
     configIs_multiple_choice    :: Bool,
     configIs_private            :: Bool,
     configVote_type             :: String,
-    configEdit_vote_permissions :: String
+    configEdit_vote_permissions :: String,
+    configDuplication_checking  :: String
 } deriving (Eq, Generic, Show)
 
 instance FromJSON Config where
